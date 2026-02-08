@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="ChatGPT_Image_5_feb_2026__17_36_02-removebg-preview.png">
+<title>Siesieboy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #eef1f5, #dfe6ee);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box; 
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 50px 30px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+  text-align: center;
+  box-sizing: border-box; 
+}
+
+/* --- PROFILE PIC ANIMATIE INSTELLINGEN --- */
+.profile-pic {
+  /* PAS HIER DE ANIMATIE AAN: */
+  --anim-duur: 1.2s;        /* Hoe lang duurt het (bijv. 0.5s of 2s) */
+  --anim-afstand: -40px;    /* Hoe ver komt hij van boven? */
+  --anim-schaal: 0.6;       /* Hoe klein begint de foto (0.1 is heel klein, 1.0 is direct groot) */
+  
+  width: 95px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  
+  /* Beginstatus */
+  opacity: 0;
+  transform: translateY(var(--anim-afstand)) scale(var(--anim-schaal));
+  
+  /* De transitie met een 'bounce' effect (cubic-bezier) */
+  transition: 
+    opacity var(--anim-duur) ease-out, 
+    transform var(--anim-duur) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Eindstatus als hij geladen is */
+.profile-pic.loaded {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- REST VAN DE STYLING (ONGEWIJZIGD) --- */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-bottom: 40px;
+  font-size: 1.05rem;
+  color: #6b7280;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
+  width: 100%;
+}
+
+.link-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  width: 100%;
+}
+
+.link-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.link-inner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  height: 100%; 
+  box-sizing: border-box;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.link-item:hover .link-inner {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12), 0 0 12px 4px rgba(80,130,238,0.4);
+}
+
+.link-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.link-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.link-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.link-text h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.link-text p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.visit-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+
+.badge {
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.badge-oranje { background: #ff9800; }
+.badge-blauw  { background: #3b82f6; }
+.badge-groen  { background: #22c55e; }
+.badge-rood   { background: #ef4444; }
+.badge-paars  { background: #a855f7; }
+
+.visit-button {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #5082ee;
+  color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.visit-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px 3px rgba(80,130,238,0.6);
+  background: #1e4ed8;
+}
+
+@media (max-width: 900px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .link-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .link-main {
+    flex-direction: column;
+  }
+  .link-text {
+    text-align: center;
+  }
+  .visit-wrapper {
+    justify-content: center;
+  }
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img src="ChatGPT Image 5 feb 2026, 17_36_02.png" class="profile-pic">
+  
+  <h1>Siesieboy</h1>
+  <p class="subtitle">Al mijn websites, makkelijker terug te vinden!</p>
+
+  <div class="links">
+    <div class="link-item">
+      <div class="link-inner">
+        <img src="logoitalianoradboud.png" class="link-logo">
+        <div class="link-main">
+          <div class="link-text">
+            <h3>Italiano Radboud 🍝</h3>
+            <p>Italiaans afhaalrestaurant</p>
+          </div>
+          <div class="visit-wrapper">
+            <div class="badge badge-groen">Favoriet</div>
+            <a href="https://italianoradboud.nl" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="link-item">
+      <div class="link-inner">
+        <img src="studiekeuzelogo.png" class="link-logo">
+        <div class="link-main">
+          <div class="link-text">
+            <h3>Studiekeuze 📚</h3>
+            <p>Hulp bij het kiezen van een studie</p>
+          </div>
+          <div class="visit-wrapper">
+            <div class="badge badge-blauw">Info</div>
+            <a href="https://siesieboy.github.io/Studiekeuze/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="link-item">
+      <div class="link-inner">
+        <img src="logoSchoolSquare.png" class="link-logo">
+        <div class="link-main">
+          <div class="link-text">
+            <h3>SchoolSquare 💻</h3>
+            <p>Beheer je toetsen en schoolwerk</p>
+          </div>
+          <div class="visit-wrapper">
+            <div class="badge badge-paars">Tools</div>
+            <a href="https://siesieboy.github.io/SchoolSquare/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="link-item">
+      <div class="link-inner">
+        <img src="logoaquaeclipse.png" class="link-logo">
+        <div class="link-main">
+          <div class="link-text">
+            <h3>Aqua Eclipse 🌊</h3>
+            <p>Voor al uw prachtige reizen!</p>
+          </div>
+          <div class="visit-wrapper">
+            <div class="badge badge-oranje">Reizen</div>
+            <a href="https://siesieboy.github.io/aquaeclipse/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Siesieboy. Alle rechten voorbehouden.
+  </footer>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Start de foto-animatie
+  setTimeout(() => {
+    document.querySelector('.profile-pic').classList.add('loaded');
+  }, 200);
+
+  // De stones komen een voor een binnen
+  const items = document.querySelectorAll('.link-item');
+  items.forEach((item, index) => {
+    setTimeout(() => {
+      item.classList.add('visible');
+    }, 600 + (index * 200)); 
+  });
+});
+</script>
+
+</body>
+</html>
