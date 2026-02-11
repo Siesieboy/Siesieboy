@@ -33,6 +33,39 @@ body {
   box-shadow: 0 30px 60px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
   text-align: center;
   box-sizing: border-box; 
+  position: relative;
+}
+
+/* --- TAAL TOGGLE --- */
+.lang-toggle {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  backdrop-filter: blur(10px);
+}
+
+.lang-toggle button {
+  border: 0;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lang-toggle button.active {
+  background: rgba(254, 131, 37, 0.8);
+  color: #ffffff;
+  box-shadow: 0 0 10px 3px rgba(244, 141, 32, 0.35);
 }
 
 /* --- PROFILE PIC ANIMATIE INSTELLINGEN --- */
@@ -215,6 +248,10 @@ h1 {
   .visit-wrapper {
     justify-content: center;
   }
+  .lang-toggle {
+    top: 16px;
+    right: 16px;
+  }
 }
 
 footer {
@@ -227,10 +264,15 @@ footer {
 <body>
 
 <div class="container">
+  <div class="lang-toggle" aria-label="Language toggle">
+    <button type="button" data-lang="nl" class="active">NL</button>
+    <button type="button" data-lang="en">EN</button>
+  </div>
+
   <img class="profile-pic" src="https://raw.githubusercontent.com/Siesieboy/Siesieboy.github.io/refs/heads/main/LogoSiesieboy.png">
   
   <h1>Siesieboy</h1>
-  <p class="subtitle">Al mijn websites, makkelijker terug te vinden!</p>
+  <p class="subtitle" data-i18n="subtitle">Al mijn websites, makkelijker terug te vinden!</p>
 
   <div class="links">
     <div class="link-item">
@@ -239,11 +281,11 @@ footer {
         <div class="link-main">
           <div class="link-text">
             <h3>Italiano Radboud 🍝</h3>
-            <p>Italiaans afhaalrestaurant</p>
+            <p data-i18n="italiano_desc">Italiaans afhaalrestaurant</p>
           </div>
           <div class="visit-wrapper">
-            <div class="badge badge-geel">Favoriet</div>
-            <a href="https://italianoradboud.nl" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+            <div class="badge badge-geel" data-i18n="badge_favorite">Favoriet</div>
+            <a href="https://italianoradboud.nl" target="_blank" rel="noopener noreferrer" class="visit-button" data-i18n="visit_button">Bezoek</a>
           </div>
         </div>
       </div>
@@ -255,11 +297,11 @@ footer {
         <div class="link-main">
           <div class="link-text">
             <h3>Studiekeuze 📚</h3>
-            <p>Hulp bij het kiezen van een studie</p>
+            <p data-i18n="studiekeuze_desc">Hulp bij het kiezen van een studie</p>
           </div>
           <div class="visit-wrapper">
-            <div class="badge badge-blauw">Info</div>
-            <a href="https://siesieboy.github.io/Studiekeuze/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+            <div class="badge badge-blauw" data-i18n="badge_info">Info</div>
+            <a href="https://siesieboy.github.io/Studiekeuze/" target="_blank" rel="noopener noreferrer" class="visit-button" data-i18n="visit_button">Bezoek</a>
           </div>
         </div>
       </div>
@@ -271,11 +313,11 @@ footer {
         <div class="link-main">
           <div class="link-text">
             <h3>SchoolSquare 💻</h3>
-            <p>Beheer je toetsen en schoolwerk</p>
+            <p data-i18n="schoolsquare_desc">Beheer je toetsen en schoolwerk</p>
           </div>
           <div class="visit-wrapper">
-            <div class="badge badge-paars">Tools</div>
-            <a href="https://siesieboy.github.io/SchoolSquare/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+            <div class="badge badge-paars" data-i18n="badge_tools">Tools</div>
+            <a href="https://siesieboy.github.io/SchoolSquare/" target="_blank" rel="noopener noreferrer" class="visit-button" data-i18n="visit_button">Bezoek</a>
           </div>
         </div>
       </div>
@@ -287,11 +329,11 @@ footer {
         <div class="link-main">
           <div class="link-text">
             <h3>Aqua Eclipse 🌊</h3>
-            <p>Voor al uw prachtige reizen!</p>
+            <p data-i18n="aqua_desc">Voor al uw prachtige reizen!</p>
           </div>
           <div class="visit-wrapper">
-            <div class="badge badge-oranje">Reizen</div>
-            <a href="https://siesieboy.github.io/aquaeclipse/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+            <div class="badge badge-oranje" data-i18n="badge_travel">Reizen</div>
+            <a href="https://siesieboy.github.io/aquaeclipse/" target="_blank" rel="noopener noreferrer" class="visit-button" data-i18n="visit_button">Bezoek</a>
           </div>
         </div>
       </div>
@@ -303,11 +345,11 @@ footer {
         <div class="link-main">
           <div class="link-text">
             <h3>What Food?</h3>
-            <p>Keuze stress voor avondeten? Dit is dé oplossing!</p>
+            <p data-i18n="whatfood_desc">Keuze stress voor avondeten? Dit is dé oplossing!</p>
           </div>
           <div class="visit-wrapper">
-            <div class="badge badge-paars">Tools</div>
-            <a href="https://siesieboy.github.io/WhatFood/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+            <div class="badge badge-paars" data-i18n="badge_tools">Tools</div>
+            <a href="https://siesieboy.github.io/WhatFood/" target="_blank" rel="noopener noreferrer" class="visit-button" data-i18n="visit_button">Bezoek</a>
           </div>
         </div>
     </div>
@@ -319,23 +361,73 @@ footer {
         <div class="link-main">
           <div class="link-text">
             <h3>Tomask4</h3>
-            <p>Link naar de website van Tomask4</p>
+            <p data-i18n="tomask4_desc">Link naar de website van Tomask4</p>
           </div>
           <div class="visit-wrapper">
-            <div class="badge badge-rood">Friend</div>
-            <a href="https://tomask4.github.io/" target="_blank" rel="noopener noreferrer" class="visit-button">Bezoek</a>
+            <div class="badge badge-rood" data-i18n="badge_friend">Friend</div>
+            <a href="https://tomask4.github.io/" target="_blank" rel="noopener noreferrer" class="visit-button" data-i18n="visit_button">Bezoek</a>
           </div>
         </div>
     </div>
   </div>
 
   <footer>
-    &copy; 2026 Siesieboy. Alle rechten voorbehouden.
+    <span data-i18n="footer">&copy; 2026 Siesieboy. Alle rechten voorbehouden.</span>
   </footer>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  const translations = {
+    nl: {
+      subtitle: "Al mijn websites, makkelijker terug te vinden!",
+      italiano_desc: "Italiaans afhaalrestaurant",
+      studiekeuze_desc: "Hulp bij het kiezen van een studie",
+      schoolsquare_desc: "Beheer je toetsen en schoolwerk",
+      aqua_desc: "Voor al uw prachtige reizen!",
+      whatfood_desc: "Keuze stress voor avondeten? Dit is dé oplossing!",
+      tomask4_desc: "Link naar de website van Tomask4",
+      badge_favorite: "Favoriet",
+      badge_info: "Info",
+      badge_tools: "Tools",
+      badge_travel: "Reizen",
+      badge_friend: "Vriend",
+      visit_button: "Bezoek",
+      footer: "© 2026 Siesieboy. Alle rechten voorbehouden."
+    },
+    en: {
+      subtitle: "All my websites, easier to find!",
+      italiano_desc: "Italian takeaway restaurant",
+      studiekeuze_desc: "Help choosing a study",
+      schoolsquare_desc: "Manage your tests and schoolwork",
+      aqua_desc: "For all your beautiful trips!",
+      whatfood_desc: "Dinner decision stress? This is the solution!",
+      tomask4_desc: "Link to Tomask4's website",
+      badge_favorite: "Favorite",
+      badge_info: "Info",
+      badge_tools: "Tools",
+      badge_travel: "Travel",
+      badge_friend: "Friend",
+      visit_button: "Visit",
+      footer: "© 2026 Siesieboy. All rights reserved."
+    }
+  };
+
+  const setLanguage = (lang) => {
+    const dict = translations[lang] || translations.nl;
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key]) {
+        el.textContent = dict[key];
+      }
+    });
+    document.querySelectorAll(".lang-toggle button").forEach((btn) => {
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+    });
+    localStorage.setItem("lang", lang);
+  };
+
   // Start de foto-animatie
   setTimeout(() => {
     document.querySelector('.profile-pic').classList.add('loaded');
@@ -348,6 +440,13 @@ document.addEventListener("DOMContentLoaded", () => {
       item.classList.add('visible');
     }, 600 + (index * 200)); 
   });
+
+  document.querySelectorAll(".lang-toggle button").forEach((btn) => {
+    btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
+  });
+
+  const storedLang = localStorage.getItem("lang");
+  setLanguage(storedLang && translations[storedLang] ? storedLang : "nl");
 });
 </script>
 
